@@ -1,40 +1,38 @@
-import React from 'react'
-import { View, Text, StyleSheet, Dimensions } from 'react-native'
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native'
 
 const ListItem = props => {
 
     let styles = props.myData.isDone ? doneStyles : undoneStyles
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity style={styles.container} onPress={props.itemPress}>
 
             <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <View style={styles.dot} />
-                <Text style={styles.text}>{props.myData.todo}</Text>
+                <Text style={styles.text}>{props.myData.myEntry}</Text>
             </View>
+            <Text>
+                {
+                    props.myData.isDone ? "Yapıldı!" : "Yapılmadı!"
+                }
+            </Text>
 
-            {/* 
-                <Text>
-                    {
-                        props.myData.isDone ? "Yapıldı!" : "Yapılmadı!"
-                    }
-                </Text>  
-            */}
-
-            {
+            
+            {/* {
                 props.myData.isDone && <Text>Yapıldı!</Text>
-            }
+            } */}
 
-        </View>
+        </TouchableOpacity>
     )
 }
 
 const doneStyles = StyleSheet.create({
     container: {
-        backgroundColor: "#ff8a65",
+        backgroundColor: "#a5d6a7",
         margin: 5,
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 30,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between'
@@ -54,10 +52,10 @@ const doneStyles = StyleSheet.create({
 
 const undoneStyles = StyleSheet.create({
     container: {
-        backgroundColor: "#aed581",
+        backgroundColor: "#ef9a9a",
         margin: 5,
         padding: 10,
-        borderRadius: 10,
+        borderRadius: 30,
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between'
@@ -65,6 +63,7 @@ const undoneStyles = StyleSheet.create({
     text: {
         fontSize: 20,
         marginLeft: 10,
+        
     },
     dot: {
         backgroundColor: 'red',
@@ -74,4 +73,4 @@ const undoneStyles = StyleSheet.create({
     }
 })
 
-export default ListItem
+export { ListItem }

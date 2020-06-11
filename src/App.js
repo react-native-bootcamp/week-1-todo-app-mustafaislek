@@ -1,52 +1,50 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from 'react-native'
-
 // import ListItem from './components/ListItem'
-
-import { MyButton, MyInput } from './components'
-import ListItem from './components'
-
-
+import { MyButton, MyInput, ListItem } from './components'
 
 function App(props) {
 
-
-
   const [entry, setEntry] = useState(""),
     [list, setList] = useState([]),
-    [isDone, setDone] = useState("yapılmadı"),
-   // [doneColor, setdoneColor] = useState("container")
+    [isDone, setDone] = useState(false),
+    // [doneColor, setdoneColor] = useState("container")
 
-
-
-  changeText = (text) => {
-    setEntry(text)
-  }
+    changeText = (text) => {
+      setEntry(text)
+    }
 
   addToList = () => {
     let newList = [...list]
-    newList.push({ myEntry: entry })
+    newList.push({ myEntry: entry, isDone: false })
     setList(newList)
     setEntry("")
   }
 
-  deleteItem = (index) => {
+  deleteItem = () => {
+
+    
+    setDone(!isDone)
+
+    // (props.myData.isDone=true)
+    // setDone(index)
     // setDone(
     //   list.filter(item => item.index == index  "yapıldı" )
-  
-    if(isDone=="yapılmadı"){
-      setDone("yapıldı")
-    }
-    else setDone("yapılmadı")
+    // if(isDone=="yapılmadı"){
+    //   setDone("yapıldı")
+    // }
+    // else setDone("yapılmadı")
 
-    console.log("pressed item AAAAAAA")
-
+    console.log("pressed item +++")
+    console.log(isDone)
 
   }
 
-  // useEffect(() => {
-  //   console.log("MOUNT");
-  // }, [])
+  useEffect(() => {
+    console.log("MOUNT --- ");
+    console.log(isDone)
+
+  }, [])
 
   return (
 
@@ -57,31 +55,17 @@ function App(props) {
 
       <View style={{ flex: 1, padding: 10 }}>
         <View style={{ flex: 3 }}>
-
-
           <FlatList
             keyExtractor={(item, index) => index.toString()}
             data={list}
             renderItem={({ item, index }) =>
-              <TouchableOpacity
-                style={[styles.container, { flex: 1, flexDirection: 'row' }]}
-                onPress={deleteItem}
-              >
-
-                <View style={styles.dot} />
-
-                <Text > {item.myEntry} </Text>
-
-                <View>
-                  <Text style={styles.text}>{isDone}</Text>
-                </View>
-
-                {/* <Text style={styles.text} >{props.list}</Text> */}
-
-              </TouchableOpacity>
+              <ListItem
+                myData={item}
+                 index ={index}
+                itemPress={deleteItem}
+              />
             }
           />
-
         </View>
         <MyInput myValue={entry} myPlace="Görev ekle..." textChange={changeText} />
         <MyButton myTitle="Ekle" myPress={addToList} />
