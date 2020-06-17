@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { SafeAreaView, StyleSheet, ScrollView, View, Text, FlatList, TouchableOpacity } from 'react-native'
-// import ListItem from './components/ListItem'
+
 import { MyButton, MyInput, ListItem } from './components'
 
 function App(props) {
@@ -8,7 +8,7 @@ function App(props) {
   const [entry, setEntry] = useState(""),
     [list, setList] = useState([]),
     [isDone, setDone] = useState(false),
-    // [doneColor, setdoneColor] = useState("container")
+
 
     changeText = (text) => {
       setEntry(text)
@@ -21,36 +21,22 @@ function App(props) {
     setEntry("")
   }
 
-  deleteItem = () => {
-
-    
-    setDone(!isDone)
-
-    // (props.myData.isDone=true)
-    // setDone(index)
-    // setDone(
-    //   list.filter(item => item.index == index  "yapıldı" )
-    // if(isDone=="yapılmadı"){
-    //   setDone("yapıldı")
-    // }
-    // else setDone("yapılmadı")
+  updateItem = (index) => {
+    let updateList = [...list]
+    updateList[index].isDone = !updateList[index].isDone
+    setList(updateList)
 
     console.log("pressed item +++")
     console.log(isDone)
-
   }
 
   useEffect(() => {
     console.log("MOUNT --- ");
     console.log(isDone)
-
   }, [])
 
   return (
-
     <SafeAreaView style={{ flex: 1 }}>
-
-
       <Text style={{ color: '#263238', fontSize: 30 }}>TO DO LIST APP</Text>
 
       <View style={{ flex: 1, padding: 10 }}>
@@ -61,8 +47,7 @@ function App(props) {
             renderItem={({ item, index }) =>
               <ListItem
                 myData={item}
-                 index ={index}
-                itemPress={deleteItem}
+                itemPress={() => updateItem(index)}
               />
             }
           />

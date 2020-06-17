@@ -15,9 +15,8 @@ const ListItem = props => {
             <Text>
                 {
                     props.myData.isDone ? "Yapıldı!" : "Yapılmadı!"
-                }
+                } 
             </Text>
-
             
             {/* {
                 props.myData.isDone && <Text>Yapıldı!</Text>
